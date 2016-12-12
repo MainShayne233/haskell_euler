@@ -1,13 +1,11 @@
-fib_seq_to_max :: Int -> [Int]
-fib_seq_to_max n = fib_seq_to_max' (n, 3, 2) [1,2]
+even_fib_sum_up_to :: Int -> Int
+even_fib_sum_up_to n = even_fib_sum_up_to' n 1 1 0
 
-fib_seq_to_max' :: (Int, Int, Int) -> [Int] -> [Int]
-fib_seq_to_max' (n, m, l) list
-  | m > n = list
-  | otherwise = fib_seq_to_max' (n, m + list !! (l - 1), l + 1) (list ++ [m])
-
-even_fib_numbers :: [Int]
-even_fib_numbers = [x | x <- fib_seq_to_max 4000000, x `rem` 2 == 0]
+even_fib_sum_up_to' :: Int -> Int -> Int -> Int -> Int
+even_fib_sum_up_to' n previous next acc
+  | next > n = acc
+  | next `rem` 2 == 0 = even_fib_sum_up_to' n next (previous + next) (acc + next)
+  | otherwise = even_fib_sum_up_to' n next (previous + next) acc
 
 solve_problem_2 :: Int
-solve_problem_2 = sum even_fib_numbers
+solve_problem2 = even_fib_sum_up_to 4000000
